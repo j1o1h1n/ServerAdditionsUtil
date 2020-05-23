@@ -2,12 +2,11 @@ package com.extracraftx.minecraft.serveradditionsutil.item;
 
 import com.extracraftx.minecraft.serveradditionsutil.interfaces.ClientItemStackProvider;
 import com.extracraftx.minecraft.serveradditionsutil.interfaces.Vanillifier;
-
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ServerSideItem extends Item implements ClientItemStackProvider {
@@ -52,7 +51,6 @@ public class ServerSideItem extends Item implements ClientItemStackProvider {
      * default vanillifier that takes the incoming stack and copies its count to a
      * stack of the representing item and gives it a custom name
      * 
-     * @param block    The block to create a block item for
      * @param id       The identifier of the block item
      * @param settings The item settings
      */
@@ -62,8 +60,9 @@ public class ServerSideItem extends Item implements ClientItemStackProvider {
         vanillifier = (original) -> {
             ItemStack changed = new ItemStack(representation);
             changed.setCount(original.getCount());
-            changed.setCustomName(getName(original).modifyStyle(style -> style.setItalic(false))
-                    .applyFormat(getRarity(original).formatting));
+            LiteralText newName = new LiteralText(I18n.translate(getName(original).asString()));
+            newName.setStyle(newName.getStyle().withItalic(false).withFormatting(getRarity(original).formatting));
+            changed.setCustomName(newName);
             return changed;
         };
         this.name = null;
@@ -74,7 +73,6 @@ public class ServerSideItem extends Item implements ClientItemStackProvider {
      * default vanillifier that takes the incoming stack and copies its count to a
      * stack of the representing item and gives it a custom name
      * 
-     * @param block    The block to create a block item for
      * @param id       The identifier of the block item
      * @param settings The item settings
      * @param name     The name to be displayed for this item
@@ -85,8 +83,9 @@ public class ServerSideItem extends Item implements ClientItemStackProvider {
         vanillifier = (original) -> {
             ItemStack changed = new ItemStack(representation);
             changed.setCount(original.getCount());
-            changed.setCustomName(new TextComponent(I18n.translate(getName(original).getText()))
-                    .modifyStyle(style -> style.setItalic(false)).applyFormat(getRarity(original).formatting));
+            LiteralText newName = new LiteralText(I18n.translate(getName(original).asString()));
+            newName.setStyle(newName.getStyle().withItalic(false).withFormatting(getRarity(original).formatting));
+            changed.setCustomName(newName);
             return changed;
         };
         this.name = name;
@@ -103,11 +102,11 @@ public class ServerSideItem extends Item implements ClientItemStackProvider {
     }
 
     @Override
-    public Component getName(ItemStack stack) {
+    public Text getName(ItemStack stack) {
         if (name == null)
             return super.getName(stack);
         else
-            return new TextComponent(name);
+            return new LiteralText(name);
     }
 
 }

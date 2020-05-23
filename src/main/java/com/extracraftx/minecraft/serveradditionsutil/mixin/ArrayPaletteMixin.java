@@ -13,7 +13,7 @@ import net.minecraft.world.chunk.ArrayPalette;
 @Mixin(ArrayPalette.class)
 public abstract class ArrayPaletteMixin{
 
-    @ModifyArg(method = "toPacket", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/PacketByteBuf;writeVarInt(I)Lnet/minecraft/util/PacketByteBuf;", ordinal=1), index=0)
+    @ModifyArg(method = "toPacket", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/PacketByteBuf;writeVarInt(I)Lnet/minecraft/network/PacketByteBuf;", ordinal=1), index=0)
     private int modifyId(int original){
         BlockState state = Block.getStateFromRawId(original);
         Block block = state.getBlock();

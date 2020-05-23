@@ -2,17 +2,15 @@ package com.extracraftx.minecraft.serveradditionsutil.mixin;
 
 import com.extracraftx.minecraft.serveradditionsutil.interfaces.ClientItemStackProvider;
 import com.extracraftx.minecraft.serveradditionsutil.interfaces.ClientRecipeProvider;
-
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapelessRecipe;
-import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(ShapelessRecipe.class)
 public abstract class ShapelessRecipeMixin implements ClientRecipeProvider<ShapelessRecipe>{

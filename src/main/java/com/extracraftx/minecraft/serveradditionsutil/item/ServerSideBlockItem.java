@@ -5,11 +5,12 @@ import com.extracraftx.minecraft.serveradditionsutil.interfaces.ClientItemStackP
 import com.extracraftx.minecraft.serveradditionsutil.interfaces.Vanillifier;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ServerSideBlockItem extends BlockItem implements ClientItemStackProvider {
@@ -70,8 +71,9 @@ public class ServerSideBlockItem extends BlockItem implements ClientItemStackPro
         vanillifier = (original) -> {
             ItemStack changed = new ItemStack(representation);
             changed.setCount(original.getCount());
-            changed.setCustomName(getName(original).modifyStyle(style -> style.setItalic(false))
-                    .applyFormat(getRarity(original).formatting));
+            LiteralText newName = new LiteralText(I18n.translate(getName(original).asString()));
+            newName.setStyle(newName.getStyle().withItalic(false).withFormatting(getRarity(original).formatting));
+            changed.setCustomName(newName);
             return changed;
         };
         this.name = null;
@@ -96,8 +98,9 @@ public class ServerSideBlockItem extends BlockItem implements ClientItemStackPro
         vanillifier = (original) -> {
             ItemStack changed = new ItemStack(representation);
             changed.setCount(original.getCount());
-            changed.setCustomName(getName(original).modifyStyle(style -> style.setItalic(false))
-                    .applyFormat(getRarity(original).formatting));
+            LiteralText newName = new LiteralText(I18n.translate(getName(original).asString()));
+            newName.setStyle(newName.getStyle().withItalic(false).withFormatting(getRarity(original).formatting));
+            changed.setCustomName(newName);
             return changed;
         };
         this.name = name;
@@ -114,11 +117,11 @@ public class ServerSideBlockItem extends BlockItem implements ClientItemStackPro
     }
 
     @Override
-    public Component getName(ItemStack stack) {
+    public Text getName(ItemStack stack) {
         if (name == null)
             return super.getName(stack);
         else
-            return new TextComponent(name);
+            return new LiteralText(name);
     }
 
 }

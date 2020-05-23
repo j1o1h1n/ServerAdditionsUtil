@@ -2,13 +2,13 @@ package com.extracraftx.minecraft.serveradditionsutil.mixin;
 
 import com.extracraftx.minecraft.serveradditionsutil.interfaces.ClientItemStackProvider;
 
+import net.minecraft.network.packet.s2c.play.EntityEquipmentUpdateS2CPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.client.network.packet.EntityEquipmentUpdateS2CPacket;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

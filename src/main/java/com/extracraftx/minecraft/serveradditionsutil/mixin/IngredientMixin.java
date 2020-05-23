@@ -13,7 +13,7 @@ import net.minecraft.recipe.Ingredient;
 @Mixin(Ingredient.class)
 public abstract class IngredientMixin{
 
-    @ModifyArg(method="write", at=@At(value="INVOKE", target="Lnet/minecraft/util/PacketByteBuf;writeItemStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/util/PacketByteBuf;"))
+    @ModifyArg(method="write", at=@At(value="INVOKE", target="Lnet/minecraft/network/PacketByteBuf;writeItemStack(Lnet/minecraft/item/ItemStack;)Lnet/minecraft/network/PacketByteBuf;"))
     private ItemStack modifyItemStack(ItemStack original){
         Item item = original.getItem();
         if(item instanceof ClientItemStackProvider){
